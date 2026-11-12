@@ -8,7 +8,10 @@ public interface Iterator<Data> {
   /* ************************************************************************ */
 
   // IsValid
+  boolean IsValid();
   // Reset
+  void Reset();
   // GetCurrent
+  Data GetCurrent();
 
 }

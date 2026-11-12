@@ -12,10 +12,10 @@ public interface Container<T extends Container<T>> {
   /* ************************************************************************ */
 
   // Empty
-  T empty();
+  T Empty();
   // Size
-  Natural size();
+  Natural Size();
   // IsEmpty
-  default boolean isEmpty() { return size().IsZero(); }
+  default boolean isEmpty() { return Size().IsZero(); }
 
 }

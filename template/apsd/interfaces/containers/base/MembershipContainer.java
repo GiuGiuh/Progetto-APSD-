@@ -1,7 +1,7 @@
 package apsd.interfaces.containers.base;
 
 /** Interface: Container con supporto alla verifica di appartenenza. */
-public interface MembershipContainer<T, Data> {
+public interface MembershipContainer<T extends MembershipContainer<T, Data>, Data> extends Container<T> {
   // Must extend Container.
   // T must have a recursive bound.
 
@@ -10,5 +10,5 @@ public interface MembershipContainer<T, Data> {
   /* ************************************************************************ */
 
   // Exists
-
+  boolean Exists (Data data);
 }
