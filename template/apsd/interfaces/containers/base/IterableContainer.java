@@ -14,9 +14,9 @@ public interface IterableContainer<T extends IterableContainer<T, Data>, Data> e
   /* ************************************************************************ */
 
   // FIterator
-  ForwardIterator<Data> FIterator();
+  ForwardIterator<Data> ForwardIterator();
   // BIterator
-  BackwardIterator<Data> BIterator();
+  BackwardIterator<Data> BackwardIterator();
 
   /* ************************************************************************ */
   /* Override specific member functions from TraversableContainer             */
@@ -24,14 +24,15 @@ public interface IterableContainer<T extends IterableContainer<T, Data>, Data> e
 
   // TraverseForward
   @Override
-  default boolean TraverseForward(Predicate<Data> pred) {
-    ForwardIterator<Data> it = FIterator();
-    
+  default boolean TraverseForward(Predicate<Data> fun) {
+    ForwardIterator<Data> it = ForwardIterator();
+    return it.ForEachForward(fun);
   }
   // TraverseBackward
   @Override
-  default boolean TraverseBackward(Predicate<Data> pred) {
-    BackwardIterator<Data> it = BIterator();
+  default boolean TraverseBackward(Predicate<Data> fun) {
+    BackwardIterator<Data> it = BackwardIterator();
+    return it.ForEachBackward(fun);
   }
 
 }

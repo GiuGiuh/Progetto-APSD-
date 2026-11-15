@@ -3,7 +3,7 @@ package apsd.interfaces.containers.sequences;
 // import apsd.classes.utilities.Natural;
 // import apsd.interfaces.containers.base.ResizableContainer;
 
-public interface DynVector<T, Data> {
+public interface DynVector<T extends DynVector<T, Data>, Data> extends ResizableContainer<T>, InsertableAtSequence<T, Data>, RemovableAtSequence<T, Data>, Vector<T, Data> {
   // Must extend ResizableContainer, InsertableAtSequence, RemovableAtSequence, and Vector.
   // T must have a recursive bound.
 

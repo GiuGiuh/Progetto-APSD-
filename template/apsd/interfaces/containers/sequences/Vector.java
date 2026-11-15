@@ -1,9 +1,9 @@
 package apsd.interfaces.containers.sequences;
 
 // import apsd.classes.utilities.Natural;
-// import apsd.interfaces.containers.base.ReallocableContainer;
+import apsd.interfaces.containers.base.ReallocableContainer;
 
-public interface Vector<T, Data> {
+public interface Vector<T extends Vector<T, Data>, Data> extends ReallocableContainer<T>, MutableSequence<T, Data> {
   // Must extend ReallocableContainer and MutableSequence.
   // T must have a recursive bound.
 
