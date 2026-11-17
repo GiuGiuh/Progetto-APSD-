@@ -48,10 +48,14 @@ public interface InsertableAtSequence<T extends InsertableAtSequence<T, Data>, D
     if(start.compareTo(end) > 0) return null; 
 
     T subSeq = Empty();
-    
-    
+    for(long i = start.ToLong(); i < end.ToLong(); i++){
+      subSeq.InsertLast(GetAt(Natural.Of(i)));
+    }
+  
     return subSeq;
 
   }
   //TODO Capire come fare SubSequence, teoricamente con un forward iterator ma per qualche motivo nonostante venga ereditato da Sequence non viene visto.
+  //Posso definirlo chiamandolo con una variabile qualunque? sembra molto brutto da fare così tbh
+  //oppure come ho fatto così
 }

@@ -40,14 +40,16 @@ public interface ResizableContainer<T extends ResizableContainer<T>> extends Rea
 
   // Grow
   @Override
-  default void Grow (Natural newCapacity) {
-    Expand(newCapacity);
-  }
+  default void Grow(Natural dim) {
+  Realloc(Natural.Of((long) ((Size().ToLong() + dim.ToLong()) * GROW_FACTOR)));
+}
+
   // Shrink
   @Override
-  default void Shrink () {
-    Reduce();
-  }
+  default void Shrink() {
+  long newCap = (long) (Capacity().ToLong() / SHRINK_FACTOR);
+  Realloc(Natural.Of(Math.max(newCap, Size().ToLong()))); // mai sotto la size
+}
 
 //TODO: CAPIRE COME UTILIZZARE TRESHOLD_FACTOR E AGGIUSTARE LE IMPLEMENTAZIONI
 }

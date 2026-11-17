@@ -29,11 +29,11 @@ public interface RemovableAtSequence<T extends RemovableAtSequence<T, Data>, Dat
   }
   // RemoveLast
   default void RemoveLast() {
-    RemoveAt(Natural.Of(Size()).Decrement());
+    RemoveAt(Size().Decrement());
   }
   // LastNRemove
   default Data LastNRemove() {
-    return AtNRemove(Natural.Of(Size()).Decrement());
+    return AtNRemove((Size()).Decrement());
   }
 
   /* ************************************************************************ */

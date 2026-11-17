@@ -19,7 +19,7 @@ public interface ReallocableContainer<T extends ReallocableContainer<T>> extends
   Natural Capacity ();
   // Grow
   default void Grow () { 
-    Realloc(Natural.Of( (Capacity().ToLong() + 1L) * (long) GROW_FACTOR ));
+    Realloc(Natural.ONE);
   }
   // Grow
   default void Grow (Natural dim) {
