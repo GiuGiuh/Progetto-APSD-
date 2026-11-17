@@ -12,8 +12,7 @@ public interface DynVector<T extends DynVector<T, Data>, Data> extends Resizable
   /* ************************************************************************ */
 
   // InsertAt
-  //@Override Diagramma dice che InsertAt è blu quindi Override
-  //Però InsertableAtSequence lo dichiara soltanto e non lo implementa, quindi non è un Override? chiedere
+  @Override 
   default void InsertAt(Data dat, Natural pos) {
     if(dat == null || pos == null) return;
     if(pos.ToLong() > Size().ToLong()) throw new IndexOutOfBoundsException("Position is out of bounds.");

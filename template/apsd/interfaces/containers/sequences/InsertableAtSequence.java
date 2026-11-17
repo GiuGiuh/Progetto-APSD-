@@ -14,14 +14,14 @@ public interface InsertableAtSequence<T extends InsertableAtSequence<T, Data>, D
   /* ************************************************************************ */
 
   // InsertAt
-  void InsertAt(Natural index, Data data);
+  void InsertAt(Data Dat, Natural pos);
   // InsertFirst
   default void InsertFirst(Data data) {
-    InsertAt(Natural.ZERO, data);
+    InsertAt(data, Natural.ZERO);
   }
   // InsertLast
   default void InsertLast(Data data) {
-    InsertAt(Natural.Of(Size()), data);
+    InsertAt(data, Natural.Of(Size()));
   }
 
   /* ************************************************************************ */

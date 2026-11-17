@@ -64,6 +64,8 @@ public interface TraversableContainer<T extends TraversableContainer<T, Data>, D
   /* ************************************************************************ */
 
   // Size
+  // Fare l'implementazione dove viene contato anche i null
+  // nelle collection invece non ci devono essere null
   @Override
   default Natural Size() {
     MutableNatural count = new MutableNatural(0);

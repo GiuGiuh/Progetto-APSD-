@@ -34,10 +34,12 @@ public interface Sequence<T extends Sequence<T, Data>, Data> extends IterableCon
   return result.Get();
 }
   // GetFirst
+  // Magari Fare GetCurrent con ForwardIterator
   default Data GetFirst() {
     return GetAt(Natural.ZERO);
   }
   // GetLast
+  // Magari fare col BackwardIterator
   default Data GetLast() {
     return GetAt(Natural.Of(Size()).Decrement());
   }
