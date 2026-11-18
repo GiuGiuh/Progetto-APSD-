@@ -23,5 +23,4 @@ public interface InsertableContainer<T extends InsertableContainer<T, Dat>, Dat>
     return con.FoldForward((elem, acc)-> Insert(elem) || acc, false);
   }
 
-    //TODO: CHIEDERESI SE E' MEGLIO LA FOLD O LA TRAVERSE
 }

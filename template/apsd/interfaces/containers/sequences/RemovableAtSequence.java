@@ -50,5 +50,4 @@ public interface RemovableAtSequence<T extends RemovableAtSequence<T, Data>, Dat
     return true;  
   }
 
-  //TODO, Capire se RemoveAt va effettivamente implementato in quel modo o boh di nuovo per l'assenza di forwardIterator, teoricamente dovrebbe essere possibile implementarlo con un forward iterator ma per qualche motivo nonostante venga ereditato da Sequence non viene visto. 
 }

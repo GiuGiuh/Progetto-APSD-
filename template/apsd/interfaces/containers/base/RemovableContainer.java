@@ -22,5 +22,4 @@ public interface RemovableContainer<T extends RemovableContainer<T, Data>, Data>
     return con.FoldForward((elem, acc)-> Remove(elem) || acc, false);
   }
 
-  //TODO: CHIEDERESI SE E' MEGLIO LA FOLD O LA TRAVERSE
 }

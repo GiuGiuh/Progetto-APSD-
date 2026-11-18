@@ -66,9 +66,7 @@ public interface DynVector<T extends DynVector<T, Data>, Data> extends Resizable
     for (long i = 0; i < len; i++) {
       sub.SetAt(GetAt(Natural.Of(from + i)), Natural.Of(i));
     }
-
     return sub;
-
   }
-
+//TODO Chiedere a Dom riguardo l'implementazione di SubSequence in DynVector.
 }
