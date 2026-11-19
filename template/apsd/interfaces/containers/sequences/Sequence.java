@@ -51,7 +51,7 @@ public interface Sequence<T extends Sequence<T, Data>, Data> extends IterableCon
       if(iterator.GetCurrent().equals(data)){
         return index;
       }
-      index.Increment();
+      index = index.Increment();
       iterator.Next();
     }
     return index;
