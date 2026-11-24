@@ -13,12 +13,12 @@ public interface RemovableContainer<T extends RemovableContainer<T, Data>, Data>
   boolean Remove(Data data);
   // AllRemoved
   default boolean AllRemoved(TraversableContainer<?,Data> con) {
-    if( con == null || con.isEmpty()) return false; //se il contenuto è vuoto non c'è nulla da rimuovere, quindi ritorno true
+    if( con == null || con.IsEmpty()) return false; //se il contenuto è vuoto non c'è nulla da rimuovere, quindi ritorno true
     return con.FoldForward((elem, acc)-> Remove(elem) && acc, true);
   }
   // SomeRemoved
   default boolean SomeRemoved(TraversableContainer<?,Data> con) {
-    if(con == null || con.isEmpty()) return false; //se il contenuto è vuoto non posso rimuovere nulla
+    if(con == null || con.IsEmpty()) return false; //se il contenuto è vuoto non posso rimuovere nulla
     return con.FoldForward((elem, acc)-> Remove(elem) || acc, false);
   }
 

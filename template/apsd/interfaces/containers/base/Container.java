@@ -16,6 +16,6 @@ public interface Container<T extends Container<T>> {
   // Size
   Natural Size();
   // IsEmpty
-  default boolean isEmpty() { return Size().IsZero(); }
+  default boolean IsEmpty() { return Size().IsZero(); }
 
 }

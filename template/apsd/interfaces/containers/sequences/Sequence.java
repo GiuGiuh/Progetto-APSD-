@@ -16,21 +16,17 @@ public interface Sequence<T extends Sequence<T, Data>, Data> extends IterableCon
 
   // GetAt
   default Data GetAt(Natural index) {
-  if (index == null || !IsInBound(index)) return null;
-
+  ExcIfOutOfBound(index);
   Box<Data> result = new Box<>();
   Box<Natural> current = new Box<>(Natural.ZERO);
-
   TraverseForward(data -> {
     if (current.Get().equals(index)) {
       result.Set(data);
       return true;
     }
-
     current.Set(current.Get().Increment());
     return false;
   });
-
   return result.Get();
 }
   // GetFirst
@@ -41,39 +37,39 @@ public interface Sequence<T extends Sequence<T, Data>, Data> extends IterableCon
   // GetLast
   // Magari fare col BackwardIterator
   default Data GetLast() {
+    if (IsEmpty()) throw new IndexOutOfBoundsException("Cannot get last element of an empty sequence.");
     return GetAt(Natural.Of(Size()).Decrement());
   }
   // Search
   default Natural Search(Data data) {
-    ForwardIterator<Data> iterator = ForwardIterator();
-    Natural index = Natural.ZERO;
-    while(iterator.IsValid()){
-      if(iterator.GetCurrent().equals(data)){
-        return index;
+    Box<Natural> index = new Box<>(Natural.ZERO);
+    TraverseForward(elem -> {
+      if (elem == null ? data == null : elem.equals(data)) {
+        return true;
       }
-      index = index.Increment();
-      iterator.Next();
-    }
-    return index;
+      index.Set(index.Get().Increment());
+      return false;
+    });
+    return IsInBound(index.Get()) ? index.Get() : null;
   }
   // IsInBound
   default boolean IsInBound(Natural index) {
     return index != null && index.compareTo(Size()) < 0;
   }
   // ExcIfOutOfBound
-  default long ExcIfOutOfBounds(Natural index) throws IndexOutOfBoundsException {
+  default long ExcIfOutOfBound(Natural index) throws IndexOutOfBoundsException {
     if(!IsInBound(index)) {
       throw new IndexOutOfBoundsException("Index " + index.ToLong() + " is out of bounds for this sequence of size " + Size() );
     }
       return index.ToLong();
   }
   // IsEqual
-  default boolean IsEqual(Sequence<T, Data> Seq){
-    if(Seq == null) return false;
-    if(Size() != Seq.Size()) return false;
+  default boolean IsEqual(Sequence<?, Data> seq){
+    if(seq == null) return false;
+    if(Size().equals(seq.Size())) return false;
 
-    ForwardIterator<Data> it1 = ForwardIterator();
-    ForwardIterator<Data> it2 = Seq.ForwardIterator();
+    ForwardIterator<Data> it1 = FIterator();
+    ForwardIterator<Data> it2 = seq.FIterator();
 
     while(it1.IsValid() && it2.IsValid()){
       if(!it1.GetCurrent().equals(it2.GetCurrent())){
@@ -87,6 +83,4 @@ public interface Sequence<T extends Sequence<T, Data>, Data> extends IterableCon
   // SubSequence
   T SubSequence(Natural start, Natural end);
 
-  //TODO DOVE USARE BOX IN SEQUENCE? 
-  //TODO CHIEDERE SE L'UTILIZZO DI BOX E' IN GETAT, MAGARI A QUALCHE COMPAGNO
 }

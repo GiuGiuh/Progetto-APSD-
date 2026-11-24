@@ -12,8 +12,8 @@ public interface Set<T extends Set<T, Data>, Data> extends Collection<T, Data> {
 
   // IsEqual
   //TODO Chiedere questo discorso che è un po' strano. Se metto i ? non danno problemi.
-  default boolean IsEqual(Set<T, Data> set){
-    return IsEqual((TraversableContainer<T, Data>) set);
+  default boolean IsEqual(Set<?, Data> set){
+    return IsEqual((TraversableContainer<?, Data>) set);
   }
 
 
@@ -24,7 +24,7 @@ public interface Set<T extends Set<T, Data>, Data> extends Collection<T, Data> {
 
   // IsEqual
   @Override
-  default boolean IsEqual(TraversableContainer<T, Data> con){
+  default boolean IsEqual(TraversableContainer<?, Data> con){
     if (con == null) return false;
     if(!Size().equals(con.Size())) return false;
     return !TraverseForward(x -> !con.Exists(x));
@@ -36,7 +36,7 @@ public interface Set<T extends Set<T, Data>, Data> extends Collection<T, Data> {
 
   // Intersection
   @Override 
-  default void Intersection(Collection col) {
+  default void Intersection(Collection<?, Data> col) {
     if(col == null) return;
     Filter(x -> col.Exists(x));
   }

@@ -32,7 +32,7 @@ public interface Queue<T extends Queue<T, Data>, Data> extends ClearableContaine
   // Clear
   @Override 
   default void Clear(){
-    while(!isEmpty())
+    while(!IsEmpty())
       Dequeue();
   }
 

@@ -29,7 +29,7 @@ public interface Chain<T extends Chain<T, Data>, Data> extends Collection<T, Dat
   // Search
   @Override
   default Natural Search(Data dat) {
-    var it = ForwardIterator();
+    var it = FIterator();
     Natural index = Natural.ZERO;
     while(it.IsValid()) {
       Data cur = it.GetCurrent();

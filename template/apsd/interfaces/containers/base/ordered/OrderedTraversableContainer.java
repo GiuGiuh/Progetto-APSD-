@@ -3,7 +3,7 @@ package apsd.interfaces.containers.base.ordered;
 import apsd.interfaces.containers.base.TraversableContainer;
 
 /** Interface: OrderedContainer & TraversableContainer. */
-public interface OrderedTraversableContainer<T extends OrderedContainer<T, Data>, Data extends Comparable<Data>> extends OrderedContainer<T, Data>, TraversableContainer<T, Data> {
+public interface OrderedTraversableContainer<T extends OrderedTraversableContainer<T, Data>, Data extends Comparable<Data>> extends OrderedContainer<T, Data>, TraversableContainer<T, Data> {
   // Must extend OrderedContainer and TraversableContainer.
   // T must have a recursive bound.
   // Data must extend Comparable.

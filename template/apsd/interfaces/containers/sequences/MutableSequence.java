@@ -17,7 +17,7 @@ public interface MutableSequence<T extends MutableSequence<T, Data>, Data> exten
   default void SetAt(Data newdat, Natural pos) {
     if(pos == null || newdat == null) return;
     if(!IsInBound(pos)) return;
-    MutableForwardIterator<Data> iterator = MutableForwardIterator();
+    MutableForwardIterator<Data> iterator = FIterator();
     Natural currentpos = Natural.ZERO;
     while(iterator.IsValid() && currentpos.compareTo(pos) < 0){
       currentpos = currentpos.Increment();
@@ -31,7 +31,7 @@ public interface MutableSequence<T extends MutableSequence<T, Data>, Data> exten
   default Data GetNSetAt(Data newdat, Natural pos) {
     if(pos == null || newdat == null) return null;
     if(!IsInBound(pos)) return null;
-    MutableForwardIterator<Data> iterator = MutableForwardIterator();
+    MutableForwardIterator<Data> iterator = FIterator();
     Natural currentpos = Natural.ZERO;
     while(iterator.IsValid() && currentpos.compareTo(pos) < 0){
       currentpos = currentpos.Increment();

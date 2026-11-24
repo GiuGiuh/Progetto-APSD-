@@ -13,13 +13,13 @@ public interface InsertableContainer<T extends InsertableContainer<T, Dat>, Dat>
   boolean Insert (Dat data);
   // AllInserted
   default boolean AllInserted(TraversableContainer<?,Dat> con) {
-    if( con == null || con.isEmpty()) return false; //se il contenuto è vuoto non c'è nulla da inserire, quindi ritorno true
+    if( con == null || con.IsEmpty()) return false; //se il contenuto è vuoto non c'è nulla da inserire, quindi ritorno true
     return con.FoldForward((elem, acc)-> Insert(elem) && acc, true);
   }
 
   // SomeInserted
   default boolean SomeInserted(TraversableContainer<?,Dat> con) {
-    if(con == null || con.isEmpty()) return false; //se il contenuto è vuoto non posso inserire nulla
+    if(con == null || con.IsEmpty()) return false; //se il contenuto è vuoto non posso inserire nulla
     return con.FoldForward((elem, acc)-> Insert(elem) || acc, false);
   }
 

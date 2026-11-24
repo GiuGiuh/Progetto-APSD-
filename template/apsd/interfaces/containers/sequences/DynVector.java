@@ -29,9 +29,9 @@ public interface DynVector<T extends DynVector<T, Data>, Data> extends Resizable
   // AtNRemove
   @Override 
   default Data AtNRemove(Natural pos) {
-    ExcIfOutOfBounds(pos);
+    ExcIfOutOfBound(pos);
     Data dat = GetAt(pos);
-    ShiftLeft(pos);
+    ShiftLeft(pos.Increment());
     SetAt(null, Size().Decrement());
     Reduce(Natural.ONE);
     return dat;
@@ -53,9 +53,9 @@ public interface DynVector<T extends DynVector<T, Data>, Data> extends Resizable
   // SubSequence
   @Override 
   default T SubSequence(Natural start, Natural end) {
-    if (start == null || end == null) return null;
-    if (!IsInBound(start) || !IsInBound(end)) return null;
-    if (start.compareTo(end) > 0) return null;
+    if (start == null || end == null) return Empty();
+    if (!IsInBound(start) || !IsInBound(end)) return Empty();
+    if (start.compareTo(end) > 0) return Empty();
 
     long from = start.ToLong();
     long len = end.ToLong() - from + 1;
@@ -68,5 +68,5 @@ public interface DynVector<T extends DynVector<T, Data>, Data> extends Resizable
     }
     return sub;
   }
-//TODO Chiedere a Dom riguardo l'implementazione di SubSequence in DynVector.
+//TODO Controllare poi questa SubSequence, dovrebbe essere un richiamo a Vector ma ha bisogno di controlli.
 }

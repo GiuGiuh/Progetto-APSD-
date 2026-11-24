@@ -44,7 +44,7 @@ public interface Stack<T extends Stack<T, Data>, Data> extends ClearableContaine
   // Clear
   @Override 
   default void Clear(){
-    while(!isEmpty())
+    while(!IsEmpty())
       Pop();
   }
 

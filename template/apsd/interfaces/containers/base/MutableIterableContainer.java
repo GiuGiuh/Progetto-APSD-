@@ -13,9 +13,9 @@ public interface MutableIterableContainer<T extends MutableIterableContainer<T, 
   /* ************************************************************************ */
 
   // FIterator
-  MutableForwardIterator<Data> MutableForwardIterator();
+  MutableForwardIterator<Data> FIterator();
   // BIterator
-  MutableBackwardIterator<Data> MutableBackwardIterator();
+  MutableBackwardIterator<Data> BIterator();
 
   //TODO: SONO OVERRIDE O DEVONO ESSERE DIVERSI?
   

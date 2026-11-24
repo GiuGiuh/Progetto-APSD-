@@ -18,28 +18,30 @@ public interface Collection<T extends Collection<T, Data>, Data> extends Clearab
 
   // InsertIfAbsent
   default boolean InsertIfAbsent(Data dat) {
-    if(dat == null) return false;
-    if(Exists(dat)) return false;
-    Insert(dat);
-    return true;
+    if(dat == null || Exists(dat)) return false;
+    return Insert(dat);
   }
   // RemoveOccurrences
   default void RemoveOccurrences(Data dat) {
-    if(dat == null) return;
-    Filter(x -> !dat.equals(x));
+    if (dat == null) return;
+    Natural n = Multiplicity(dat);
+    while(n.compareTo(Natural.ZERO) > 0) {
+      Remove(dat);
+      n = n.Decrement();
+    }
   }
   // Filter
   default boolean Filter(Predicate<Data> fun) {
     if (fun == null) return false;
 
     boolean removed = false;
-    ForwardIterator<Data> it = ForwardIterator();
+    ForwardIterator<Data> it = FIterator();
 
     while( it.IsValid()) {
       Data dat = it.GetCurrent();
       if(!fun.Apply(dat) && Remove(dat)) {
         removed = true;
-        it = ForwardIterator();  // la rimozione può invalidare l'iteratore: si riparte
+        it = FIterator();  // la rimozione può invalidare l'iteratore: si riparte
       } else {
         it.Next();
       }
@@ -47,38 +49,37 @@ public interface Collection<T extends Collection<T, Data>, Data> extends Clearab
     return removed;
   }
   // Union
-  default void Union(Collection col) {
-    if(col == null) return;
-    ForwardIterator<Data> it = col.ForwardIterator();
+  default void Union(Collection<?, Data> col) {
+    if(col == null || col == this) return;
+    ForwardIterator<Data> it = col.FIterator();
     while(it.IsValid()) {
-      Data dat = it.GetCurrent();
-      InsertIfAbsent(dat);
+      InsertIfAbsent(it.GetCurrent());
       it.Next();
     }    
   }
   // Difference
-  default void Difference(Collection col) {
+  default void Difference(Collection<?, Data> col) {
     if(col == null) return;
-    ForwardIterator<Data> it = col.ForwardIterator();
-    while(it.IsValid()) {
-      Data dat = it.GetCurrent();
-      RemoveOccurrences(dat);
-      it.Next();
-    }    
+    if(col == this) {
+      Clear();
+      return;
+    }
+    Filter(x -> !col.Exists(x));
   }
   // Intersection
-  default void Intersection(Collection col) {
-    if(col == null) return;
-    ForwardIterator<Data> it = ForwardIterator();
+  default void Intersection(Collection<?, Data> col) {
+    if(col == null || col == this) return;
+    ForwardIterator<Data> it = FIterator();
     while(it.IsValid()) {
       Data dat = it.GetCurrent();
-      if(!col.Exists(dat)) {
-        RemoveOccurrences(dat);
-        it = ForwardIterator();  // la rimozione può invalidare l'iteratore: si riparte
-      } else {
+      if(Multiplicity(dat).compareTo(col.Multiplicity(dat)) > 0) {
+        Remove(dat);
+        it = FIterator(); 
+      }
+      else {
         it.Next();
       }
-    }    
+    }
   }
 
   /* ************************************************************************ */
@@ -92,5 +93,5 @@ public interface Collection<T extends Collection<T, Data>, Data> extends Clearab
   }
 
 
-  //TODO: Rivedere questa interfaccia, soprattutto il discorso delle rimozione che possono invalidare l'iteratore
+  //TODO: Rivedere questa interfaccia, soprattutto il discorso delle rimozione che possono invalidare l'iteratore e dell'intersection in collection
 }

@@ -17,7 +17,7 @@ public interface Vector<T extends Vector<T, Data>, Data> extends ReallocableCont
 
     long size = Size().ToLong();
     long s = start.ToLong();
-    long e = end.ToLong();
+    long e = Math.min(end.ToLong(), size);
     long n = num.ToLong();
 
     if(s >= e || n == 0) return;
@@ -40,14 +40,13 @@ public interface Vector<T extends Vector<T, Data>, Data> extends ReallocableCont
     ShiftLeft(pos, Natural.ONE);
   }
   // ShiftFirstLeft
-  default void ShiftFirstLeft(Natural num) {
-    if(num == null) return;
-    ShiftLeft(Natural.ZERO, Size(), num);
+  default void ShiftFirstLeft() {
+    ShiftLeft(Natural.ZERO);
   }
   // ShiftLastLeft
-  default void ShiftLastLeft(Natural num) {
-    if(num == null) return;
-    ShiftLeft(Size().Decrement(), Size(), num);
+  default void ShiftLastLeft() {
+    if(IsEmpty()) return;
+    ShiftLeft(Size().Decrement());
   }
   // ShiftRight
   default void ShiftRight(Natural start, Natural end, Natural num) {
@@ -76,14 +75,13 @@ public interface Vector<T extends Vector<T, Data>, Data> extends ReallocableCont
     ShiftRight(pos, Natural.ONE);
   }
   // ShiftFirstRight
-  default void ShiftFirstRight(Natural num) {
-    if(num == null) return;
-    ShiftRight(Natural.ZERO, Size(), num);
+  default void ShiftFirstRight() {
+    ShiftRight(Natural.ZERO);
   }
   // ShiftLastRight
-  default void ShiftLastRight(Natural num) {
-    if(num == null) return;
-    ShiftRight(Size().Decrement(), Size(), num);
+  default void ShiftLastRight() {
+    if(IsEmpty()) return;
+    ShiftRight(Size().Decrement());
   }
 
   /* ************************************************************************ */
@@ -103,21 +101,19 @@ public interface Vector<T extends Vector<T, Data>, Data> extends ReallocableCont
   // SubSequence
   @Override
   default T SubSequence(Natural start, Natural end) {
-    if (start == null || end == null) return null;
-    if (!IsInBound(start) || !IsInBound(end)) return null;
-    if (start.compareTo(end) > 0) return null;
+    if (start == null || end == null) return Empty();
+    if (!IsInBound(start) || !IsInBound(end)) return Empty();
+    if (start.compareTo(end) > 0) return Empty();
 
     long from = start.ToLong();
-    long lenght = end.ToLong() - from + 1;
+    long length = end.ToLong() - from + 1;
 
     T sub = Empty();
-    sub.Realloc(Natural.Of(lenght));
-    for(long i = 0; i < lenght; i++) {
+    sub.Realloc(Natural.Of(length));
+    for(long i = 0; i < length; i++) {
       sub.SetAt(GetAt(Natural.Of(from + i)), Natural.Of(i));
     }
     return sub;
     
   }
-
-  //TODO Ricontrollare questa interfaccia
 }

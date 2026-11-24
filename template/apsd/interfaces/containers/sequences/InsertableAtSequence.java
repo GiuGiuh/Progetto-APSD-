@@ -43,13 +43,13 @@ public interface InsertableAtSequence<T extends InsertableAtSequence<T, Data>, D
   // SubSequence
   @Override
   default T SubSequence(Natural start, Natural end) {
-    if(start == null || end == null) return null;
-    if(!IsInBound(start) || !IsInBound(end)) return null;
-    if(start.compareTo(end) > 0) return null; 
+    if(start == null || end == null) return Empty();
+    if(!IsInBound(start) || !IsInBound(end)) return Empty();
+    if(start.compareTo(end) > 0) return Empty(); 
 
     T subSeq = Empty();
     
-    var iterator = ForwardIterator();
+    var iterator = FIterator();
     long from = start.ToLong();
     long to = end.ToLong();
 
